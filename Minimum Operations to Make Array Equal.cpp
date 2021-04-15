@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int minOperations(int n) {
+        
+        if(n%2)
+            return (n*n-1)/4;
+        else
+            return (n*n)/4;
+        
+    }
+};
