@@ -18,7 +18,7 @@ void binaryTraverse(vector<int>& nums1, vector<int>& nums2, int& p, int& q, int&
         binaryTraverse(nums1, nums2, p, q, lowermedianpos);
     }
     else if (index > nums2.size() - 1)
-        if (index == nums2.size() && nums1[mid] >= nums2[index-1])
+        if (index == nums2.size() && nums1[mid] >= nums2[index - 1])
         {
             lowermedianpos = mid;
             return;
@@ -41,7 +41,7 @@ void binaryTraverse(vector<int>& nums1, vector<int>& nums2, int& p, int& q, int&
         }
     else
     {
-        q = mid-1;
+        q = mid - 1;
         binaryTraverse(nums1, nums2, p, q, lowermedianpos);
     }
 
@@ -66,21 +66,26 @@ double emptyMedian(vector<int>& nums)
     if (nums.size() % 2 == 1)
         return nums[nums.size() / 2];
     else
-        return float(nums[(nums.size()-1) / 2] + nums[((nums.size() -1) / 2) + 1]) / 2;
+        return float(nums[(nums.size() - 1) / 2] + nums[((nums.size() - 1) / 2) + 1]) / 2;
 }
 
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     if (nums1.size() == 0) return emptyMedian(nums2);
     if (nums2.size() == 0) return emptyMedian(nums1);
-    int lowermedianpos1 = -1, lowermedianpos2 = -1, p1=0,p2=0,q1 = nums1.size()-1, q2 = nums2.size()-1;
-    binaryTraverse(nums1, nums2, p1, q1, lowermedianpos1);
-    if (lowermedianpos1 == -1)
+    if (nums2.size() < nums1.size())
+        swap(nums1, nums2);
+    int lowermedianpos = -1, p1 = 0, q1 = nums1.size() - 1;
+    binaryTraverse(nums1, nums2, p1, q1, lowermedianpos);
+    if (lowermedianpos == -1)
     {
-        binaryTraverse(nums2, nums1, p2, q2, lowermedianpos2);
-        return getMedian(nums2, nums1, lowermedianpos2);
+        int p2 = (nums2.size()-1) / 2 - nums1.size() / 2 - 1, q2 = (nums2.size()-1) / 2 + nums1.size() / 2 + 1, size2 = nums2.size() - 1;
+        p2 = max(0, p2);
+        q2 = min(size2, q2);
+        binaryTraverse(nums2, nums1, p2, q2, lowermedianpos);
+        return getMedian(nums2, nums1, lowermedianpos);
     }
     else
-        return getMedian(nums1, nums2, lowermedianpos1);
+        return getMedian(nums1, nums2, lowermedianpos);
 }
 
 };
