@@ -11,29 +11,31 @@
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        int pos = 1;
+        int pos = 0;
+        ListNode* dummyhead = new ListNode(0, head);
+        head = dummyhead;
         ListNode* returnhead = head;
-        while(pos < left)
+        while(pos < left - 1)
         {
             head = head->next;
             pos++;
         }
-        stack<int> reverseelements;
-        ListNode* copyhead = head;
-        int copypos = pos;
-        while(copypos <= right)
-        {
-            reverseelements.push(copyhead->val);
-            copyhead = copyhead->next;
-            copypos++;
-        }
+        ListNode* start_reverse = head;
+        ListNode* end_reverse = head->next;
+        ListNode *node, *node_l, *node_r;
+        node = head->next;
+        pos++;
         while(pos <= right)
         {
-            head->val = reverseelements.top();
-            reverseelements.pop();
-            head = head->next;
+            node_r = node->next;
+            node->next = node_l;
+            node_l = node;
+            node = node_r;
             pos++;
         }
+        end_reverse->next = node_r;
+        start_reverse->next = node_l;
+        returnhead = returnhead->next;
         return returnhead;
     }
 };
