@@ -1,17 +1,21 @@
 class Solution {
 public:
     int triangleNumber(vector<int>& nums) {
-        int count = 0;
+        int count = 0, left, right;
         sort(nums.begin(), nums.end());
-        vector<int>::iterator pos;
-        for(int i=0;i<nums.size();i++)
+        for(int pos=nums.size()-1;pos>=0;pos--)
         {
-            if(nums[i] == 0) continue;
-            for(int j=i+1;j<nums.size();j++)
+            left = 0;
+            right = pos-1;
+            while(right > left)
             {
-                if(nums[j] == 0) continue;
-                pos = lower_bound(nums.begin()+j, nums.end(), nums[i]+nums[j]);
-                count += distance(nums.begin(), pos) - j - 1;
+                if(nums[left] + nums[right] > nums[pos])
+                {
+                    count += right - left;
+                    right--;
+                }
+                else
+                    left++;
             }
         }
         return count;
