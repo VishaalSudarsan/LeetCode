@@ -1,3 +1,4 @@
+//Method 1
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) 
@@ -13,5 +14,15 @@ public:
         reverse(lb, nums.end());
         reverse(nums.begin()+pos+1, lb-1);
         rotate(nums.begin()+pos, lb-1, nums.end());
+    }
+};
+
+
+//Method 2
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) 
+    {
+        next_permutation(nums.begin(), nums.end());
     }
 };
