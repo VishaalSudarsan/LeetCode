@@ -41,6 +41,10 @@ public:
 //Method 2
 class Solution {
 public:
+    //The logic is exactly the same as Method 1. It is just a more cleaner version of Method 1
+    //first reverse the rows so that the i coordinates now become n-1-i
+    //then swap the new (i,j) coordinates with (j,i) coordinates
+    //this is equivalent to swapping original (i,j) with (j, n-1-i) which is what was happening in Method 1
     void rotate(vector<vector<int>>& matrix) 
     {
         reverse(matrix.begin(), matrix.end());
