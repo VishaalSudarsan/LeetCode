@@ -1,3 +1,4 @@
+//Method 1
 class Solution {
 public:
     //This is the function that tells what should be the next coordinate for a given index i,j
@@ -33,5 +34,18 @@ public:
                 next = nextloc(next.first, next.second, matrix);
                 matrix[next.first][next.second] = temp1;
             }      
+    }
+};
+
+
+//Method 2
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) 
+    {
+        reverse(matrix.begin(), matrix.end());
+        for(int i=0;i<matrix.size();i++)
+            for(int j=i+1;j<matrix.size();j++)
+                swap(matrix[i][j], matrix[j][i]);
     }
 };
