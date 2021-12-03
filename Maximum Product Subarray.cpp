@@ -1,3 +1,30 @@
+//Method 1
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) 
+    {
+        int size = nums.size();
+        vector<int> maxarray(size, 1), minarray(size, 1);
+        maxarray[0] = nums[0];
+        minarray[0] = nums[0];
+        for(int i=1;i<size;i++)
+        {
+            if(nums[i]>0)
+            {   
+                maxarray[i] = max(nums[i], nums[i]*maxarray[i-1]);
+                minarray[i] = min(nums[i], nums[i]*minarray[i-1]);
+            }
+            else
+            {
+                maxarray[i] = max(nums[i], nums[i]*minarray[i-1]);
+                minarray[i] = min(nums[i], nums[i]*maxarray[i-1]);
+            }    
+        }
+        return max(*max_element(maxarray.begin(), maxarray.end()), *max_element(minarray.begin(), minarray.end()));
+    }
+};
+
+//Method 2
 class Solution {
 public:
     
