@@ -1,0 +1,54 @@
+class Solution:
+    def Bsearch(self, nums: List[int], start: int, end: int, target: int) -> bool:
+
+        mid_index = lambda s,e : int((s + e)/2)
+
+        while start < end-1:
+            mid = mid_index(start,end)
+            #print(start, end, mid)
+            if target < nums[mid]:
+                end = mid_index(start, end)
+            elif target > nums[mid]:
+                start = mid_index(start,end)        
+            else:
+                return True
+        return nums[start] == target or nums[end] == target or False
+
+
+    def search(self, nums: List[int], target: int) -> bool:
+        start = 0
+        end = len(nums) - 1
+        mid_index = lambda s,e : int((s + e)/2)
+        mid = mid_index(start, end)
+
+        while nums[start] == nums[end] and start < end-1:
+            end = end-1
+
+        if end - start > 1 and nums[start] > nums[end]:
+            while (not (nums[mid] > nums[mid+1] and nums[mid] >= nums[mid-1])) and start < end-1:
+                mid = mid_index(start, end)
+                #print(start, end, mid)
+                if nums[mid] >= nums[start] and nums[mid] > nums[end]:
+                    start = mid
+                else:
+                    end = mid
+                    
+            max_index = mid
+        
+        elif end - start <= 1:
+            if nums[start] > nums[end]:
+                max_index = start  
+            else:
+                max_index = end
+        else:
+                max_index = end
+
+        #print(max_index, nums[max_index])
+        present = self.Bsearch(nums, 0, max_index, target)
+
+        if not present:
+            present = self.Bsearch(nums, max_index, len(nums)-1, target)
+
+        return present
+
+
